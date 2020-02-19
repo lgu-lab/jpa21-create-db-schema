@@ -1,0 +1,38 @@
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
+  version="2.1">
+  
+
+	<persistence-unit name="derby" transaction-type="RESOURCE_LOCAL">
+	
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+		
+		<!-- Database Properties -->
+		<properties>
+			<!-- DERBY database ( Embedded / In Memory )-->
+			<!-- JDBC configuration -->
+			<!-- 
+			<property name="javax.persistence.jdbc.driver"   value="org.apache.derby.jdbc.ClientDriver"/>
+			 -->
+			<property name="javax.persistence.jdbc.driver"   value="org.apache.derby.jdbc.EmbeddedDriver"/>
+			<!-- 
+			<property name="javax.persistence.jdbc.url"      value="jdbc:derby://localhost:1527/bookstore"/>
+			 -->
+			<property name="javax.persistence.jdbc.url"      value="jdbc:derby:directory:/d:/tmp/derby-db-tmp;create=true"/>
+			
+			<property name="javax.persistence.jdbc.user"     value="root"/>
+			<property name="javax.persistence.jdbc.password" value="admin"/>
+			<!-- Hibernate database dialect -->			
+			<property name="hibernate.dialect"                  value="org.hibernate.dialect.DerbyDialect"/>
+
+			<!-- Database schema creation ( New in JPA 2.1 ) -->
+			<!-- database.action : "none", "create", "drop-and-create", "drop". -->
+			<property name="javax.persistence.schema-generation.database.action"       value="drop-and-create"/>
+			<!-- DDL scripts generation ( New in JPA 2.1 ) -->
+
+			<property name="hibernate.max_fetch_depth" value="3" />
+		</properties>
+		
+	</persistence-unit>
+	
+</persistence>

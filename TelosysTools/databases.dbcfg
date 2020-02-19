@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databases defaultId="1" maxId="10">
+<db dialect="org.hibernate.dialect.H2Dialect" driver="org.h2.Driver" id="0" isolationLevel="" name="H2 embedded" poolSize="1" typeName="H2" url="jdbc:h2:~/tmpdb;DB_CLOSE_DELAY=-1;mv_store=false">
+<property name="user" value="sa"/>
+<property name="password" value=""/>
+<metadata catalog="TMPDB" schema="INFORMATION_SCHEMA" table-name-exclude="" table-name-include="" table-name-pattern="%" table-types="TABLE"/>
+</db>
+<db dialect="org.hibernate.dialect.DerbyDialect" driver="org.apache.derby.jdbc.EmbeddedDriver" id="1" isolationLevel="" name="DERBY" poolSize="1" typeName="DERBY" url="jdbc:derby:directory:/d:/tmp/derby-db-tmp">
+<property name="user" value="root"/>
+<property name="password" value="admin"/>
+<metadata catalog="" schema="TO_BE_DEFINED" table-name-exclude="" table-name-include="" table-name-pattern="%" table-types="TABLE"/>
+</db>
+</databases>

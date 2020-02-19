@@ -1,0 +1,13 @@
+
+Test scenario 1 : 
+  
+  
+  Use H2 "in memory" with "DB_CLOSE_DELAY=-1" to keep the DB between different connections
+  
+  In the same JVM :
+  - Launch JPA create tables
+  - Launch Telosys create DB model 
+  
+  Create a new Telosys project dedicated to this job
+  
+  
