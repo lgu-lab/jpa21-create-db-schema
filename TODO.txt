@@ -11,3 +11,9 @@ Test scenario 1 :
   Create a new Telosys project dedicated to this job
   
   
+Test scenario 2 :
+
+  Use HSQLDB (simpler : no server notion, only JDBC connections ) 
+
+  Define DB in persistence.sql 
+  

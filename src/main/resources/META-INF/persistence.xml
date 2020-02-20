@@ -2,12 +2,22 @@
   xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
   version="2.1">
   
-	<persistence-unit name="telosys-tmp-db" transaction-type="RESOURCE_LOCAL">
+	<persistence-unit name="hsqldb-tmp" transaction-type="RESOURCE_LOCAL">
 	
+		<!-- Persistence unit for HSQLDB IN MEMORY with HIBERNATE implementation -->
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		
+		<!-- HSQLDB configuration -->
 		<properties>
-					<property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect" />
+			<!-- Standard JPA properties : JDBC connection configuration -->			
+			<property name="javax.persistence.jdbc.driver"    value="org.hsqldb.jdbc.JDBCDriver"/>
+ 			<property name="javax.persistence.jdbc.url"       value="jdbc:hsqldb:mem:telosys"/> 			
+			<property name="javax.persistence.jdbc.user"      value="SA" /> 
+			<property name="javax.persistence.jdbc.password"  value="" /> 
+			<!-- Specific HIBERNATE properties -->
+			<property name="hibernate.dialect"     value="org.hibernate.dialect.HSQLDialect" />
+			<property name="hibernate.show_sql"    value="true" />
+			<property name="hibernate.format_sql"  value="true" />
 		</properties>
 		
 	</persistence-unit>
