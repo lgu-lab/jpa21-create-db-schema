@@ -8,18 +8,27 @@ import java.sql.Statement;
 
 import javax.persistence.EntityManager;
 
-public class Main {
+public class Main2 {
 
 	public static void main(String[] args) throws SQLException {
 
 		InMemoryHsqlDb db = new InMemoryHsqlDb("hsqldb-tmp", "modeltmp");
-
+		
+		// NB : keep HSQL engine running !!!!
 		db.createSchema();
-
+		
+		// NB : keep HSQL engine running !!!!
 //		EntityManager em = db.createEntityManager();
 //		em.close();
 
 		Connection con = db.getConnection();
+		
+//		String createTable = "create table COUNTRY (" + 
+//				"CODE varchar(255) not null, " + 
+//				"NAME varchar(50), " + 
+//				"primary key (CODE) " + 
+//				")";
+//		db.execSQL(createTable);
 		
 		insert(con, "FR", "France");
 
@@ -37,7 +46,7 @@ public class Main {
 				System.out.println(" . " + rs.getObject(1) + " " + rs.getObject(2) + " " + rs.getObject(3));
 			}
 
-			shutdown(con);
+//			shutdown(con);
 
 			con.close();
 		} catch (SQLException e) {

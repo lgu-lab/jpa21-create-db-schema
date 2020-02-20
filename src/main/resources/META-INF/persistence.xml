@@ -11,7 +11,10 @@
 		<properties>
 			<!-- Standard JPA properties : JDBC connection configuration -->			
 			<property name="javax.persistence.jdbc.driver"    value="org.hsqldb.jdbc.JDBCDriver"/>
- 			<property name="javax.persistence.jdbc.url"       value="jdbc:hsqldb:mem:telosys"/> 			
+			<property name="javax.persistence.jdbc.url"       value="jdbc:hsqldb:mem:modeltmp"/>
+<!--  			
+ 			<property name="javax.persistence.jdbc.url"       value="jdbc:hsqldb:mem:"/>
+ --> 		
 			<property name="javax.persistence.jdbc.user"      value="SA" /> 
 			<property name="javax.persistence.jdbc.password"  value="" /> 
 			<!-- Specific HIBERNATE properties -->

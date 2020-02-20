@@ -3,6 +3,7 @@ package org.demo;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Properties;
 
 import javax.persistence.EntityManager;
@@ -13,17 +14,29 @@ public class InMemoryHsqlDb {
 
 	private final String persistenceUnitName ;
 	
+	private final String databaseName ;
+	
 	private EntityManagerFactory entityManagerFactory ;
 	
-	public InMemoryHsqlDb(String persistenceUnitName) {
+	/**
+	 * Constructor 
+	 * @param persistenceUnitName persistence unit name in 'persistence.xml' file
+	 * @param databaseName database name used in jdbc url defined in 'persistence.xml' file
+	 */
+	public InMemoryHsqlDb(String persistenceUnitName, String databaseName) {
 		super();
 		this.persistenceUnitName = persistenceUnitName;
+		this.databaseName = databaseName;
 		this.entityManagerFactory = null ;
 	}
 
 	public String getPersistenceUnitName() {
 		return persistenceUnitName;
 	}
+	public String getDatabaseName() {
+		return databaseName;
+	}
+
 
 	public void createSchema() {
 
@@ -40,7 +53,11 @@ public class InMemoryHsqlDb {
 		 * by the supplied properties Called when schema generation is to occur as a
 		 * separate phase from creation of the entity manager factory.
 		 */
-		Persistence.generateSchema(persistenceUnitName, properties);
+		// Do not use "Persistence.generateSchema()" because it's not possible to stop HSQL engine
+		// Persistence.generateSchema(persistenceUnitName, properties); // NB : keep HSQL engine running !!!!
+		
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory(persistenceUnitName, properties);
+		emf.close(); // Close the factory, releasing any resources that it holds => HSQL can stop at the end of 'Main'
 	}
 
 	public Connection getConnection() {
@@ -52,9 +69,20 @@ public class InMemoryHsqlDb {
 		}
 		
 		try {
-			return DriverManager.getConnection("jdbc:hsqldb:mem:mymemdb", "SA", "");
+			String url = "jdbc:hsqldb:mem:" + this.databaseName ;
+			return DriverManager.getConnection(url, "SA", "");
 		} catch (SQLException e) {
 			throw new RuntimeException("Cannot get HSQLDB connection (SQLException)", e);
+		}
+	}
+
+	public void execSQL(String sql) {
+//		Connection con = getConnection() ;
+		try ( Connection con = getConnection() ){
+			Statement stmt = con.createStatement();
+			stmt.execute(sql);
+		} catch (SQLException e) {
+			throw new RuntimeException("SQL error (SQLException)", e);
 		}
 	}
 
@@ -75,6 +103,13 @@ public class InMemoryHsqlDb {
 	public EntityManager createEntityManager() {
 		EntityManagerFactory emf = getEntityManagerFactory();
 		return emf.createEntityManager();
+	}
+
+	public void closeEntityManagerFactory() {
+		if ( entityManagerFactory != null ) {
+			// Close the factory, releasing any resources that it holds
+			entityManagerFactory.close();
+		}
 	}
 
 }
