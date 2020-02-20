@@ -28,7 +28,7 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
-			<version>4.3.11.Final</version>
+			<version>5.2.10.Final</version>
 		</dependency>
 
 		<!-- Logging : SLF4J is used by Hibernate -->
